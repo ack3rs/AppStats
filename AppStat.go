@@ -14,7 +14,7 @@ type Config struct {
 
 func Go(C Config) {
 
-	// Do some Validation on C
+	// TODO: Validate C
 
 	go UpdateInflux(C)
 
