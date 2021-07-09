@@ -1,11 +1,18 @@
 package main
 
 import (
+	"log"
+	"net/http"
 	"os"
 	"time"
 
 	"github.com/acky666/AppStats"
 )
+
+func WebHandler(w http.ResponseWriter, r *http.Request) {
+	AppStats.Stats.IncStat("requests")
+	w.Write([]byte("Hello World!"))
+}
 
 func main() {
 
@@ -20,8 +27,7 @@ func main() {
 		UpdateFrequency: 15 * time.Second,
 	})
 
-	// TODO:   Web Handler.
-
-	// Web Server
+	http.HandleFunc("/", WebHandler)
+	log.Fatal(http.ListenAndServe(":8080", nil))
 
 }
